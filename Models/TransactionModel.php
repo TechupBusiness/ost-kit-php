@@ -28,7 +28,7 @@ class TransactionModel {
 	/* @var float $gas_price	        value of the gas utilized for the transaction */
 	public $gas_price;
 
-	/* @var integer $gas_used	        (optional) hexadecimal value of the gas used to execute the tranaction */
+	/* @var string $gas_used	        (optional) hexadecimal value of the gas used to execute the tranaction */
 	public $gas_used;
 
 	/* @var float $transaction_fee	    (optional) the value of the gas used at the gas price */
@@ -43,4 +43,6 @@ class TransactionModel {
 	/* @var float $commission_amount	(optional) the amount of branded tokens transferred to the company  */
 	public $commission_amount;
 
+	/* @var float $airdropped_amount  the amount of branded tokens that were deducted from airdrop balance while executing the transaction. */
+	public $airdropped_amount;
 }

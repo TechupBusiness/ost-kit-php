@@ -3,6 +3,7 @@
 namespace Techup\SimpleTokenApi\Repositories;
 
 use Techup\SimpleTokenApi\Enums\RequestTypeEnum;
+use Techup\SimpleTokenApi\Enums\SortOrderEnum;
 use Techup\SimpleTokenApi\Models\AirdropModel;
 
 class AirdropRepository extends RepositoryAbstract {
@@ -52,26 +53,25 @@ class AirdropRepository extends RepositoryAbstract {
 
 	/**
 	 *
-	 * @param integer $page_no	    page number (starts from 1)
-	 * @param string $order_by	    order the list by when the transaction was created (default) . Can only be ordered by transaction creation date.
-	 * @param string $order	        orders the list in 'desc' (default). Accepts value 'asc' to order in ascending order.
-	 * @param integer $limit		limits the number of transaction objects to be sent in one request. Possible Values Min 1, Max 100, Default 10.
-	 * @param string $optional__filters	filters can be used to refine your list. The Parameters on which filters are supported are:
-	 *      Filter:         Description:                                                Example:
-	 *      id	            Airdrop ids	                                                'id="bc6dc9e1-6e62-4032-8862-6f664d8d7541, 94543988-9fa6-4d0a-8a9f-d65d345f6175"'
-	 *      current_status	indicates the stage at which the executed airdrop is in.	'current_status="complete, pending"'
+	 * @param integer $page_no	                page number (starts from 1)
+	 * @param string $order_by	                order the list by when the transaction was created (default) . Can only be ordered by transaction creation date.
+	 * @param SortOrderEnum|string $sort_order	orders the list in 'desc' (default). Accepts value 'asc' to order in ascending order.
+	 * @param integer $limit		            limits the number of transaction objects to be sent in one request. Possible Values Min 1, Max 100, Default 10.
+	 * @param string[] $ids                     (optional) Airdrop id(s) to lookup airdrops
+	 * @param string[] $current_statuses        (optional) Status(es) to lookup airdrops
 	 *
 	 * @throws
 	 * @return AirdropModel[]
 	 */
-	public function list($page_no, $order_by, $order, $limit, $optional__filters="" ) {
+	public function list($page_no, $order_by, $sort_order, $limit, $ids = null, $current_statuses = null ) {
 
 		$params = [
 			'page_no' => $page_no,
 			'order_by' => $order_by,
-			'order' => $order,
+			'order' => $sort_order,
 			'limit' => $limit,
-			'optional__filters' => $optional__filters,
+			'id'  => $ids!==null && is_array($ids) ? implode(',', $ids) : null,
+			'current_status'  => $current_statuses!==null && is_array($current_statuses) ? implode(',', $current_statuses) : null,
 		];
 
 		/* @var $list AirdropModel[] */

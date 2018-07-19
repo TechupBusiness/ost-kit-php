@@ -3,7 +3,7 @@
 namespace Techup\SimpleTokenApi\Enums;
 
 
-class TransactionStatusEnum extends TypedEnumHelper {
+class StatusEnum extends TypedEnumHelper {
 	/** @return $this */
 	public static function processing() { return self::_create('processing'); }
 	/** @return $this */

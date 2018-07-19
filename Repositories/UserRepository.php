@@ -3,6 +3,7 @@
 namespace Techup\SimpleTokenApi\Repositories;
 
 use Techup\SimpleTokenApi\Enums\RequestTypeEnum;
+use Techup\SimpleTokenApi\Enums\SortOrderEnum;
 use Techup\SimpleTokenApi\Models\UserModel;
 
 class UserRepository extends RepositoryAbstract {
@@ -27,7 +28,7 @@ class UserRepository extends RepositoryAbstract {
 	}
 
 	/**
-	 * Get a user (workaround to get user data is an edit action)
+	 * Get a user
 	 *
 	 * @param string $uuid	Uuid of the user
 	 *
@@ -45,28 +46,28 @@ class UserRepository extends RepositoryAbstract {
 	}
 
 	/**
+	 * List of user
 	 *
-	 * @param integer $page_no	    page number (starts from 1)
-	 * @param bool $airdropped      true == users who have been airdropped tokens, false == users who have not been airdropped tokens
-	 * @param integer $limit		limits the number of user objects to be sent in one request(min. 1, max. 100, default 10)
-	 * @param string $order_by	    (optional) order the list by 'creation_time' or 'name' (default)
-	 * @param string $order	        (optional) order users in 'desc' (default) or 'asc' order
-	 * @param string $optional__filters	filters can be used to refine your list. The Parameters on which filters are supported are:
-	 *      Filter:     Description:            Example:
-	 *      id	        user ids	            'id="3b679b8b-b56d-48e5-bbbe-7397899c8ca6, d1c0be68-30bd-4b06-af73-7da110dc62da"'
-	 *      name	    specific user names	    'name="Alice, Bob"'
+	 * @param integer $page_no	            page number (starts from 1)
+	 * @param bool $airdropped              true == users who have been airdropped tokens, false == users who have not been airdropped tokens
+	 * @param integer $limit		        limits the number of user objects to be sent in one request(min. 1, max. 100, default 10)
+	 * @param string $order_by	            (optional) order the list by 'creation_time' or 'name' (default)
+	 * @param SortOrderEnum $sort_order	    (optional) order users in 'desc' (default) or 'asc' order
+	 * @param string[] $ids                 (optional) user id(s) to lookup user
+	 * @param string[] $names               (optional) specific name(s) to lookup user
 	 *
 	 * @throws
 	 * @return UserModel[]
 	 */
-	public function list($page_no, $airdropped, $limit = 10, $order_by = '', $order = '', $optional__filters="" ) {
+	public function list($page_no, $airdropped, $limit = 10, $order_by = null, $sort_order = null, $ids = null, $names = null ) {
 
 		$params = [
 			'page_no' => $page_no,
 			'order_by' => $order_by,
-			'order' => $order,
+			'order' => $sort_order,
 			'limit' => $limit,
-			'optional__filters' => $optional__filters,
+			'id'    => $ids!==null && is_array($ids) ? implode(',', $ids) : null,
+			'name'  => $names!==null && is_array($names) ? implode(',', $names) : null,
 		];
 
 		/* @var $list UserModel[] */

@@ -14,10 +14,4 @@ class UserModel {
 	/* @var string $name	name of the user (not unique) */
 	public $name;
 
-	/* @var float $airdropped_tokens	total amount of airdropped tokens to the user */
-	public $airdropped_tokens;
-
-	/* @var float $token_balance	number current balance of the user */
-	public $token_balance;
-
 }

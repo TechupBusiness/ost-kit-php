@@ -29,7 +29,7 @@ abstract class RepositoryAbstract {
 		if($mode=="live") {
 			$url = '';
 		} else {
-			$url = 'https://sandboxapi.ost.com/v1';
+			$url = 'https://sandboxapi.ost.com/v1.1';
 		}
 
 		// check for cs cart
@@ -45,9 +45,8 @@ abstract class RepositoryAbstract {
 	 *
 	 * @param string $endpoint
 	 * @param (array|string)[] $parameters
-	 * @param string[]|string $class_name
+	 * @param string[]|string $class_names
 	 * @param RequestTypeEnum $request_type must be get, post or put
-	 * @param array $meta   Get meta values by reference passing
 	 *
 	 * @return object|array
 	 * @throws \Exception
@@ -125,7 +124,6 @@ abstract class RepositoryAbstract {
 	 *
 	 * @param string $endpoint
 	 * @param array $parameters
-	 * @param string $method 'get' or 'post'
 	 *
 	 * @return array[]
 	 * @throws \Exception
@@ -219,7 +217,13 @@ abstract class RepositoryAbstract {
 		return $return;
 	}
 
-
+	/**
+	 * Try to identify if the object is a list
+	 *
+	 * @param $data
+	 *
+	 * @return bool
+	 */
 	protected function isObjectList($data) {
 		if(is_array($data)) {
 			$hasNonArray = false;
