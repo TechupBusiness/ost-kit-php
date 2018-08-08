@@ -11,6 +11,7 @@ abstract class RepositoryAbstract {
 	private $api_key;
 	private $api_secret;
 	private $company_uuid;
+	private $mode;
 
 	/**
 	 * WrapperAbstract constructor.
@@ -25,6 +26,7 @@ abstract class RepositoryAbstract {
 		$this->api_key = $api_key;
 		$this->api_secret = $api_secret;
 		$this->company_uuid = $company_uuid;
+		$this->mode = $mode;
 
 		if($mode=="live") {
 			$url = '';
@@ -263,6 +265,30 @@ abstract class RepositoryAbstract {
 			$arr[$name] = ${$name};
 		}
 		return $arr;
+	}
+
+	/**
+	 * Formats a decimal number to be compatible with the API
+	 *
+	 * @param $amount
+	 * @param int $decimals
+	 *
+	 * @return bool|string
+	 */
+	protected function roundAmount($amount, $decimals = 5) {
+		if(empty($amount)) {
+			return $amount;
+		}
+
+		// Implement limitation that amount can't be higher than 100
+		if($this->mode!='live' && $amount > 100) {
+			$amount = 100;
+		}
+
+		$decimals++;
+		$n = number_format($amount, $decimals, '.', '');
+		$n = substr($n, 0, -1);
+		return $n;
 	}
 
 }

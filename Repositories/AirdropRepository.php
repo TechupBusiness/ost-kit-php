@@ -28,7 +28,7 @@ class AirdropRepository extends RepositoryAbstract {
 	public function execute($amount, $airdropped = null, $user_ids = []) {
 
 		$params = [
-			'amount' => $amount,
+			'amount' => $this->roundAmount($amount),
 			'airdropped' => $airdropped,
 			'user_ids' => implode(',', $user_ids),
 		];

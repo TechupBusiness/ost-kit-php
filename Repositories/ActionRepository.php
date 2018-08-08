@@ -28,7 +28,7 @@ class ActionRepository extends RepositoryAbstract {
 			'kind' => $kind,
 			'currency' => $currency,
 			'arbitrary_amount' => $arbitrary_amount,
-			'amount' => $amount,
+			'amount' => $this->roundAmount($amount),
 			'arbitrary_commission' => $arbitrary_commission,
 		];
 
@@ -65,7 +65,7 @@ class ActionRepository extends RepositoryAbstract {
 		if($kind!==null)                    $params['kind'] = $kind;
 		if($currency!==null)                $params['currency'] = $currency;
 		if($arbitrary_amount!==null)        $params['arbitrary_amount'] = $arbitrary_amount;
-		if($amount!==null)                  $params['amount'] = $amount;
+		if($amount!==null)                  $params['amount'] = $this->roundAmount($amount);
 		if( $arbitrary_commission !== null)    $params['arbitraty_commission'] = $arbitrary_commission;
 		if($commission_percent!==null)      $params['commission_percent'] = $commission_percent;
 

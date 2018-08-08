@@ -24,7 +24,7 @@ class TransactionRepository extends RepositoryAbstract {
 			'from_user_id' => $from_user_id,
 			'to_user_id' => $to_user_id,
 			'action_id' => $action_id,
-			'amount' => $amount,
+			'amount' => $this->roundAmount($amount),
 			'commission_percent' => $commission_percent,
 		];
 

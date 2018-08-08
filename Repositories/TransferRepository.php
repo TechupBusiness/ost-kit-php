@@ -19,7 +19,7 @@ class TransferRepository extends RepositoryAbstract {
 
 		$params = [
 			'to_address' => $to_address,
-			'amount' => $amount,
+			'amount' => $this->roundAmount($amount),
 		];
 
 		/* @var $execute TransferModel[] */
